@@ -1,0 +1,17 @@
+
+Copy files from local Lab-17-12 to the server:
+
+Terminal-1:
+ssh glen.sasek@cslinux.pcc.edu
+mkdir CS-162
+cd CS-162
+mkdir Lab-17-12
+
+Terminal-2:
+cd Lab-17-12
+sftp glen.sasek@cslinux.pcc.edu
+cd CS-162/Lab-17-12
+put *
+
+
+
