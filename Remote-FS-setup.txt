@@ -1,0 +1,22 @@
+Install the Remote FS extension
+Select extensions (looks like blocks) from the left margin.
+Search for Remote FS
+Install
+Click the gear, select settings, select link: edit in settings.json
+Copy/Paste
+{
+    "remotefs.remote": {
+    
+        "cslinux.pcc.edu": {
+            "scheme": "sftp",
+            "host": "cslinux.pcc.edu",
+            "username": "USERNAME",
+            "rootPath": "/home/student/USERNAME"
+        },
+    }
+}
+
+press and hold shift and ctrl then press p
+enter remote fs
+you should be able to select the cslinux.pcc.edu configuration
+wait a few seconds for the browser to reload and enter your password at the prompt.
