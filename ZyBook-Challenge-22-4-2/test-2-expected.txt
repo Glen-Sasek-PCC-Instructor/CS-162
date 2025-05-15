@@ -1,0 +1,2 @@
+In GerbilsList destructor
+Deallocating GerbilNode with 8 pups.
