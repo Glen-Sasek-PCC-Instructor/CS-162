@@ -1,0 +1,8 @@
+●       task.h
+●       task.cpp
+●       tasklist.h
+●       tasklist.cpp
+●       main.h
+●       main.cpp
+●       tasks.txt
+●       algorithm.pdf

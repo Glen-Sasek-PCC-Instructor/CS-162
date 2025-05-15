@@ -1,0 +1,6 @@
+To get your exam:
+
+log on the Linux server
+go to the directory you plan to take the exam, such as ~/cs162/as3
+type the following command: gef lliang cs162 assessment3 . (notice the . at the end)
+follow the instructions on the screen to start your exam.
