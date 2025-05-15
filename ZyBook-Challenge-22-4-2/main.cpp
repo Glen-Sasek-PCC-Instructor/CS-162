@@ -13,6 +13,10 @@ class GerbilNode {
 
       int pups;
       GerbilNode* next;
+
+      void print() {
+         cout << "pups: " << pups << ", next " << (next == nullptr ? "-> nullptr" : "-> GerbilNode" ) << endl;
+      }
 };
 
 class GerbilsList {
@@ -43,6 +47,17 @@ class GerbilsList {
          head = newNode;
       }
 
+      void print() {
+          // Start at the head of the list
+          GerbilNode* it = head;
+          cout << "head " << (it == nullptr ? "-> nullptr" : "-> GerbilNode" ) << endl;
+          // Iterate through the list and delete each node
+          while (it != nullptr) {
+            it->print();
+            it = it->next; // Move to the next node
+          }         
+      }
+
    private:
       GerbilNode* head;
 };
@@ -54,10 +69,14 @@ int main() {
    int i;
   
    cin >> gerbilCount;
-  
+    
+   // Uncomment to see the list being constructed
+   // userGerbils->print();
    for (i = 0; i < gerbilCount; i++) {
       cin >> inputValue;
       userGerbils->Prepend(inputValue);
+      // Uncomment to see the list being constructed
+      // userGerbils->print();
    }
 
    delete userGerbils;
