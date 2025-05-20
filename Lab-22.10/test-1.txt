@@ -1,0 +1,7 @@
+4
+plates 100
+spoons 200
+cups 150
+forks 200
+
+forks
