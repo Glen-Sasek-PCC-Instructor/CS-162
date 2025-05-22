@@ -13,15 +13,19 @@ class TaskList {
         struct Node
         {
             Task data;
-            Node *next;
+            Node *next = nullptr;
         };
         Node *head;
         Node *tail;
         int size;
+        
+        void init();
+
     public:
         //constructors
         TaskList();
         TaskList(char filename[]);
+        TaskList(std::istream &is);
         //destructor
         ~TaskList();
 
@@ -48,6 +52,16 @@ class TaskList {
         void printHeader(std::ostream &os);
 
         void loadTasklist(std::istream &is);
+
+        void interactiveAddTask();
+
+        void listByName(std::ostream &os);
+
+        void listByType(std::ostream &os);
+
+        void searchByTaskName(std::ostream &os);
+
+        void removeByIndex(std::ostream &os);
 };
     
 

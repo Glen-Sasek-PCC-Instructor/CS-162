@@ -16,7 +16,7 @@
 
 using namespace std;
 
-const char* DATAFILE = "tasks.csv";
+char DATAFILE[] = "tasks.csv";
 
 const char* MESSAGE_WELCOME = "Welcome!";
 const char* MESSAGE_GOODBYE = "Thank you for using my program!!";
@@ -49,6 +49,110 @@ const char* MESSAGE_TYPE_OPTIONS =
     "(2) Inventory\n"
     "(3) Communications\n"
     "(4) Others\n";    
+
+char menu();
+
+void menu_do(char c, TaskList &tasklist);
+
+int main() {
+    char c = '\0';
+
+    TaskList tasklist(DATAFILE);
+    tasklist.prettyPrint(cout);
+    
+    cout << MESSAGE_WELCOME << endl;
+
+    do {
+        c = menu();
+        menu_do(c, tasklist);
+    } while (c != 'q');  
+
+    cout << MESSAGE_GOODBYE << endl;
+    return 0;
+}
+
+char menu() {
+    cout << PROMPT_PICK_OPTION << endl;
+    cout << MESSAGE_MENU_OPTIONS << endl;
+
+    char c = 'q';
+    cin >> c;
+    return c;
+}
+
+
+void menu_do(char c, TaskList &tasklist) {
+    switch(c) {
+      case 'a':
+        tasklist.interactiveAddTask();
+        break;
+
+      case 'b':
+        tasklist.listByName(cout);
+        break;
+
+     case 'c':
+        tasklist.listByType(cout);
+        break;
+
+     case 'd':
+        tasklist.searchByTaskName(cout);
+        break;
+
+     case 'e':
+        tasklist.removeByIndex(cout);
+        break;
+
+     case 'q':
+        // Accept option, nothing to do here.
+        break;
+
+    default:
+        cout << "ERROR: Unsupported option: " << c << endl;
+    }
+}
+
+
+// Day,task name,duration,person name,category
+// 5,Replace ventilation filters,2,Robbie Mitchell,1
+// TaskList loadTasklist(istream &is) {
+//     bool next = true;
+
+//     TaskList tasklist;
+
+//     is.ignore(numeric_limits<streamsize>::max(), '\n');
+
+//     char buffer[Task::MAX_CHARS + 1];
+
+//     while(next) {
+//         Task *task = new Task;
+
+//         is >> task->day;
+//         if(is) {
+//             is.get(); // Remove one character the comma ','
+
+//             is.getline(buffer, Task::MAX_CHARS, ',');
+//             task->task_name = new char[strlen(buffer) +1]; 
+//             strcpy(task->task_name, buffer);
+
+//             is >> task->duration;
+//             is.get(); // Remove one character the comma ','
+
+//             is.getline(buffer, Task::MAX_CHARS, ',');
+//             task->person_name = new char[strlen(buffer) +1]; 
+//             strcpy(task->person_name, buffer);
+
+//             is >> task->category;
+//             is.ignore(numeric_limits<streamsize>::max(), '\n');
+//             tasklist.addTask(task);
+//         } else {
+//             next = false;
+//         }
+//     }
+
+//     return tasklist;
+// }
+
 
 // class Task {
 // public:
@@ -137,120 +241,6 @@ const char* MESSAGE_TYPE_OPTIONS =
 //     }
 // };
 
-TaskList loadTasklist(istream &is);
-
-char menu();
-
-void menu_do(char c);
-
-int main() {
-    char c = '\0';
-
-    ifstream fin(DATAFILE);
- 
-    if(fin) {
-        // OK
-    } else {
-        cout << "ERROR: cant open: " << DATAFILE << endl;
-        return 1;
-    }
-
-    TaskList tasklist = loadTasklist(fin);
-    tasklist.prettyPrint(cout);
-    
-    cout << MESSAGE_WELCOME << endl;
-
-    do {
-        c = menu();
-        menu_do(c);
-    } while (c != 'q');  
-
-    cout << MESSAGE_GOODBYE << endl;
-    return 0;
-}
-
-
-// Day,task name,duration,person name,category
-// 5,Replace ventilation filters,2,Robbie Mitchell,1
-TaskList loadTasklist(istream &is) {
-    bool next = true;
-
-    TaskList tasklist;
-
-    is.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    char buffer[Task::MAX_CHARS + 1];
-
-    while(next) {
-        Task *task = new Task;
-
-        is >> task->day;
-        if(is) {
-            is.get(); // Remove one character the comma ','
-
-            is.getline(buffer, Task::MAX_CHARS, ',');
-            task->task_name = new char[strlen(buffer) +1]; 
-            strcpy(task->task_name, buffer);
-
-            is >> task->duration;
-            is.get(); // Remove one character the comma ','
-
-            is.getline(buffer, Task::MAX_CHARS, ',');
-            task->person_name = new char[strlen(buffer) +1]; 
-            strcpy(task->person_name, buffer);
-
-            is >> task->category;
-            is.ignore(numeric_limits<streamsize>::max(), '\n');
-            tasklist.addTask(task);
-        } else {
-            next = false;
-        }
-    }
-
-    return tasklist;
-}
-
-
-char menu() {
-    cout << PROMPT_PICK_OPTION << endl;
-    cout << MESSAGE_MENU_OPTIONS << endl;
-
-    char c = 'q';
-    cin >> c;
-    return c;
-}
-
-
-void menu_do(char c) {
-    switch(c) {
-      case 'a':
-        cout << "TODO: Add" << endl;
-        break;
-
-      case 'b':
-        cout << "TODO: List by name" << endl;
-        break;
-
-     case 'c':
-        cout << "TODO: List by type" << endl;
-        break;
-
-     case 'd':
-        cout << "TODO: Search by task name" << endl;
-        break;
-
-     case 'e':
-        cout << "TODO: Remove by index" << endl;
-        break;
-
-     case 'q':
-        // Accept option, nothing to do here.
-        break;
-
-    default:
-        cout << "ERROR: Unsupported option: " << c << endl;
-    }
-}
 
 
 
