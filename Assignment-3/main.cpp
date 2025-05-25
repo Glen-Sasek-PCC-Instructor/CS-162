@@ -36,7 +36,8 @@ const char* PROMPT_TASK_NAME = "Enter task name:  ";
 const char* MESSAGE_MENU_OPTIONS = 
     "\n"
     "(a) Add a new task\n" 
-    "(b) List tasks by name\n"
+    "(b) List tasks by task name\n"
+    "(p) List tasks by person name\n"
     "(c) List tasks by Type\n"
     "(d) Search by task name\n"
     "(e) Remove tasks by index\n"
@@ -88,10 +89,15 @@ void menu_do(char c, TaskList &tasklist) {
         break;
 
       case 'b':
-        tasklist.listByName(cout);
+        tasklist.listByTaskName(cout);
+        break;
+
+      case 'p':
+        tasklist.listByPersonName(cout);
         break;
 
      case 'c':
+        cout << MESSAGE_TYPE_OPTIONS;
         tasklist.listByType(cout);
         break;
 

@@ -7,6 +7,9 @@
 
 class Task {
     public:
+        enum Category { OPERATIONS, MAINTENANCE, INVENTORY, COMMUNICATIONS, OTHER };
+        static const char* CATEGORY_NAMES[OTHER+1];
+
         static const int MAX_CHARS = 50;
         int day = -1;
         char *task_name = nullptr;
@@ -16,7 +19,7 @@ class Task {
     
         void print(std::ostream &os);
     
-        void print(std::ostream &os, int taskNameWidth, int personNameWidth);
+        void print(std::ostream &os, int index, int taskNameWidth, int personNameWidth);
     };
 
     #endif

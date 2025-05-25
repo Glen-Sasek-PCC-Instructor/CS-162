@@ -55,13 +55,18 @@ class TaskList {
 
         void interactiveAddTask();
 
-        void listByName(std::ostream &os);
+        void listByTaskName(std::ostream &os);
+
+        void listByPersonName(std::ostream &os);
 
         void listByType(std::ostream &os);
+
 
         void searchByTaskName(std::ostream &os);
 
         void removeByIndex(std::ostream &os);
+
+        void insertionSort(int (*compare)(Task, Task));
 };
     
 
