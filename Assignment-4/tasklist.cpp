@@ -86,8 +86,57 @@ void TaskList::loadTasklist(std::istream &is) {
     }
 }
 
+// Zero indexed
+void TaskList::addTaskAtPosition(Task *task, int pos) {
+    if(pos > size) {
+        std::cout << "Error: pos: " << pos << " greater than size: " << size << std::endl;
+    }
+    Node *newNode = new Node;
+    newNode->data = *task;
+
+    Node *ptr = head;
+    for(int i = 0; i < pos - 1; i++) {
+        ptr = ptr->next;
+    }
+
+    if(pos == 0) {
+        newNode->next = head;
+        head = newNode;
+    } else {
+        newNode->next = ptr->next;
+        ptr->next = newNode;
+    }
+
+    if(pos == size) {
+        tail = newNode;
+    }
+    size++;
+}
+
+// Requires list previously sorted in name order.
+int TaskList::getPositionForName(Task *task) {
+
+    Node *it;
+    int index = 0;
+    bool found = false;
+	for(it = head; index < size && !found; it = it->next)
+	{
+        if(strcmp(task->person_name, it->data.person_name) > 0) {
+            index++;
+        } else {
+            found = true;
+        }
+    }
+    return index;
+}
 
 void TaskList::addTask(Task *task) {
+    int pos = getPositionForName(task);
+    addTaskAtPosition(task, pos);
+}
+
+
+void TaskList::addTaskAtEnd(Task *task) {
     Node *newNode = new Node;
     newNode->data = *task;
     if(size == 0) {
@@ -101,19 +150,6 @@ void TaskList::addTask(Task *task) {
 }
 
 void TaskList::updateMaxLengths() {
-    // for (int i = 0; i < size; i++)
-    // {
-    //     if (strlen(tasks[i].task_name) > maxTaskNameLen)
-    //     {
-    //         maxTaskNameLen = strlen(tasks[i].task_name);
-    //     }
-
-    //     if (strlen(tasks[i].person_name) > maxPersonNameLen)
-    //     {
-    //         maxPersonNameLen = strlen(tasks[i].person_name);
-    //     }
-    // }
-
     Node *it;
 	for(it = head; it != nullptr; it = it->next)
 	{
@@ -132,10 +168,6 @@ void TaskList::updateMaxLengths() {
 }
 
 void TaskList::print(std::ostream &os) {
-    // for (int i = 0; i < tasksSize; i++)
-    // {
-    //     tasks[i].print(os);
-    // }
     Node *it;
 	for(it = head; it != nullptr; it = it->next)
 	{
@@ -148,10 +180,6 @@ void TaskList::prettyPrint(std::ostream &os) {
 
     std::cout << std::endl;
     printHeader(os);
-    // for (int i = 0; i < tasksSize; i++)
-    // {
-    //     tasks[i].print(os, maxTaskNameLen + 2, maxPersonNameLen + 2);
-    // }
 
     int index = 1;
 
@@ -387,48 +415,5 @@ void TaskList::insertionSort(int (*compare)(Task t1, Task t2)) {
     head = sorted;
 }
 
-
-
-
-// Insertion sort for linked list
-// Node* insertionSort(Node* head) {
-
-// }
-
 #endif
 
-
-// TaskList::TaskList(char fileName[])
-// {
-//     head = NULL;
-//     tail = NULL;
-//     size = 0;
-//     std::ifstream inFile;
-//     Task aSong;
-//     //char tempTitle[Task::MAX_CHARS], tempArtist[Task::MAX_CHARS];
-//     //int tempDuration;
-//     //int tempBPS;
-//     inFile.open(fileName);
-//     if(!inFile)
-//     {
-//         std::cout << "cannot open file! Exiting!!" << std::endl;
-//         exit(0);
-//     }
-//     inFile.getline(tempTitle, MAXCHAR, ';');
-//     while(!inFile.eof())
-//     {
-//         inFile.getline(tempArtist, MAXCHAR, ';');
-//         inFile >> tempDuration;
-//         inFile.ignore(5, ';');
-//         inFile >> tempBPS;
-//         inFile.ignore(5, '\n');
-//         //populate aSong;
-//         aSong.setSongTitle(tempTitle);
-//         aSong.setSongArtist(tempArtist);
-//         aSong.setDuration(tempDuration);
-//         aSong.setBPS(tempBPS);
-//         addSong(aSong);
-//         inFile.getline(tempTitle, MAXCHAR, ';');
-//     }
-//     inFile.close();
-// }

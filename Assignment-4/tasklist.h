@@ -41,9 +41,15 @@ class TaskList {
         // Update
         // Delete
         
-        void addTask(Task *task); // A3-TODO: update, maybe
+        void addTask(Task *task); 
+
+        void addTaskAtEnd(Task *task); 
+
+        void addTaskAtPosition(Task *task, int pos);
     
         void updateMaxLengths() ;
+
+        int getPositionForName(Task *task);
     
         void prettyPrint(std::ostream &os);
     
