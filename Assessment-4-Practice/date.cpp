@@ -78,7 +78,25 @@ ostream& operator<< (ostream& out, const Date& aDate)
 	return aDate.print(out);
 }
 
+istream& operator>> (istream& is, Date& date) {
+	int year = 0;
+	int month = 0;
+	int day = 0;
+
+	// 2021/11/10
+	is >> year;
+	is.get();
+	is >> month;
+	is.get();
+	is >> day;
+
+	date.setDate(year, month, day);
+	return is;
+}
+
 bool Date::operator< (const Date& right) const
 {
 	return difftime(right.rawTime, this->rawTime) > 0;
 }
+
+

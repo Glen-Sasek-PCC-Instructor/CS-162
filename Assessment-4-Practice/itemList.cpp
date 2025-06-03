@@ -182,3 +182,60 @@ void ItemList::printList() const
 	}
 }
 
+
+// return the items that are older than the passed in “expDate” in the list. 
+// The items are returned through the dynamically allocated array “olderItems” and 
+// the function returns the number of items found that are older than “expDate”.
+int ItemList::getOlderItems(const Date& maxDate, InventoryItem *& olderItems) const {
+	std::cout << "TODO: int ItemList::getOlderItems(const Date& expDate, InventoryItem *& olderItems) const" << std::endl;
+
+	int olderItemsSize = 0;
+
+	Node *node = head;
+	while(node->next != nullptr) {
+		if(maxDate < (*node->data.getExpDate())) {
+			InventoryItem *newArr = new InventoryItem[olderItemsSize + 1];
+			for (int i = 0; i < olderItemsSize; i++)
+			{
+				newArr[i] = olderItems[i];
+			}
+
+			newArr[olderItemsSize] = node->data;
+			olderItemsSize++;
+			delete[] olderItems;
+			olderItems = newArr;
+		}
+		node = node -> next;
+	}
+
+	return olderItemsSize;
+}
+
+
+// Remove the data items in the first node and the last node along with the nodes. 
+// If there are less than 2 nodes, the function does nothing. 
+void ItemList::removeFirstAndLast() {
+	// std::cout << "TODO: void ItemList::removeFirstAndLast()" << std::endl;	
+	if(size < 2) {
+		return;
+	}
+
+	Node *node = head;
+	// Remove head
+    head = head->next;
+	delete node; 
+
+	// Find node before tail
+	node = head;
+	while(node->next != nullptr && node->next->next != nullptr) {
+		node = node->next;
+	}
+
+	delete node->next;
+	node->next = nullptr;
+}
+
+
+
+
+

@@ -22,3 +22,5 @@ public:
 };
 
 ostream& operator<< (ostream& out, const Date& aDate);
+
+istream& operator>> (istream&, Date&);
