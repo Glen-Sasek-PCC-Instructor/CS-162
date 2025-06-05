@@ -182,3 +182,54 @@ void ItemList::printList() const
 	}
 }
 
+
+// Copy the item at position “index” into anItem.
+// Return true is successful.
+// Returns false if index is out of bounds (less than 0 or greater than size - 1). 
+bool ItemList::getItem(int index, InventoryItem& anItem) {
+	//std::cout << "TODO: bool ItemList::getItem(int index, InventoryItem& anItem)" << endl;
+	
+	bool success = false; 
+
+	if(index > 0 && index <= (getSize() - 1)) {
+		// Call overloaded [] within implementation file
+		// https://chatgpt.com/share/6841dd6d-99b0-8013-8842-ff26b9a1dfce
+		anItem = (*this)[index];
+		success = true;
+	}
+	return success;
+}
+
+// Remove the item with itemName from the list. 
+// Return true is successful.
+// Returns false if there is no item with the matching name. 
+bool ItemList::removeItem(const char* itemName) {
+	
+	// std::cout << "TODO: bool ItemList::removeItem(const char* itemName)" << endl;
+
+	bool success = false; 
+
+	Node *node = head;
+	Node *prev;
+	while(node != nullptr && !success) {
+		if(strcmp(node->data.getItemName(), itemName) == 0) {
+			success = true;
+		} else {
+			prev = node;
+			node = node->next;
+		}
+	}
+
+	// Not Found 
+	if(!success) {
+		// Sad :(  nothing to do.
+	} else if(node == head) {
+		head = head->next;
+		delete node;
+	} else {
+		prev->next = node->next;
+		delete node;
+	}
+
+	return success;	
+}

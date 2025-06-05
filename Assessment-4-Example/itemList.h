@@ -41,5 +41,15 @@ public:
 
 	void printList() const;
 	void readList(istream& in);
-	
+
+	// Copy the item at position “index” into anItem.
+	// Return true is successful.
+	// Returns false if index is out of bounds (less than 0 or greater than size - 1). 
+	bool getItem(int index, InventoryItem& anItem);
+
+
+	// Remove the item with itemName from the list. 
+	// Return true is successful.
+	// Returns false if there is no item with the matching name. 
+	bool removeItem(const char* itemName);
 };
